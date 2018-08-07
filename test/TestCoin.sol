@@ -2,6 +2,7 @@ pragma solidity ^0.4.24;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/ENFToken.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 contract TestCoin{
     ENFToken ENF = ENFToken(DeployedAddresses.ENFToken());
     constructor() public{
@@ -9,27 +10,29 @@ contract TestCoin{
     }
    
     function testBalance() public{
-        uint256 returnedBalance = ENF.balances[msg.sender];
+        uint256 returnedBalance = ENF.balanceOf(msg.sender);
         uint256 expectedBalance = 500000000;
         Assert.equal(returnedBalance,expectedBalance,"Owner has 500 million ENF tokens");
 
-    }
-    function testTransfer() public{
-        address testAddress = 0x5fe3062B24033113fbf52b2b75882890D7d8CA54;
-        ENF.transfer(testAddress,50);
-        uint returnedBalance = ENF.balances[testAddress];
-        uint expectedBalance = 50;
+    }//success
+    //gives error because only owner can call it
+    function testTransfer() public payable{
+        address testAddress = 0x994d9587AF083850B5205deb51211A415825be27;
+        ENF.transfer(testAddress,5);
+        uint returnedBalance = ENF.balanceOf(testAddress);
+        uint expectedBalance = 5;
         Assert.equal(returnedBalance,expectedBalance,"Address has 50 ENF tokens");
 
     }
-    function testTransferFromAccounts() public{
-        address testAddress = 0x083c41ea13af6c2d5aaddf6e73142eb9a7b00183;
-        address testAddress2 = 0x5fe3062B24033113fbf52b2b75882890D7d8CA54;
-        ENF.transfer(testAddress,50);
-        ENF.transfer(testAddress2,50);
+    //gives error because only owner can call it
+    function testTransferFromAccounts() public payable{
+        address testAddress = 0xb124A4AABbFEb88F42999eC93aeb37288b42D140;
+        address testAddress2 = 0xa4427151826A48b586C8FD0D247582424a530946;
+       // ENF.transfer(testAddress,500);
+       // ENF.transfer(testAddress2,500);
         ENF.transferFrom(testAddress,testAddress2,5);
-        uint returnedBalance = ENF.balances[testAddress];
-        uint expectedBalance = 55;
+        uint returnedBalance = ENF.balanceOf(testAddress2);
+        uint expectedBalance = 505;
         Assert.equal(returnedBalance,expectedBalance, "Address has 55 ENF tokens");
         
 
