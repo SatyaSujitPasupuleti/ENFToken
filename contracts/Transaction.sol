@@ -26,6 +26,8 @@ contract Transaction{
         require(now >= time); //make sure funds are not paid before the time has elapsed
         ENF.transferFrom(msg.sender,paidPerson,amount); //after time has elapsed web3.js will call this function 
     }
+    function () external payable {
+    }
     
 
 

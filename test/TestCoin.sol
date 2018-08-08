@@ -15,7 +15,9 @@ contract TestCoin{
         Assert.equal(returnedBalance,expectedBalance,"Owner has 500 million ENF tokens");
 
     }//success
-    //gives error because only owner can call it
+
+    //gives error 
+    //could be an issue with gas or require in inherited function:
     function testTransfer() public payable{
         address testAddress = 0x994d9587AF083850B5205deb51211A415825be27;
         ENF.transfer(testAddress,5);
@@ -24,12 +26,12 @@ contract TestCoin{
         Assert.equal(returnedBalance,expectedBalance,"Address has 50 ENF tokens");
 
     }
-    //gives error because only owner can call it
+    //gives error 
     function testTransferFromAccounts() public payable{
         address testAddress = 0xb124A4AABbFEb88F42999eC93aeb37288b42D140;
         address testAddress2 = 0xa4427151826A48b586C8FD0D247582424a530946;
-       // ENF.transfer(testAddress,500);
-       // ENF.transfer(testAddress2,500);
+        ENF.transfer(testAddress,500);
+        ENF.transfer(testAddress2,500);
         ENF.transferFrom(testAddress,testAddress2,5);
         uint returnedBalance = ENF.balanceOf(testAddress2);
         uint expectedBalance = 505;

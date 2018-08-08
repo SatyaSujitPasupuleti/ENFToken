@@ -15,4 +15,6 @@ contract ENFToken is StandardToken {
         balances[msg.sender] = INITIAL_SUPPLY;
         
     }
+    function () external payable {
+    }
 }
