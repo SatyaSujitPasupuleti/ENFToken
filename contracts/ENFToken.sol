@@ -1,8 +1,8 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/BasicToken.sol";
 
-contract ENFToken is StandardToken {
+contract ENFToken is BasicToken {
     string public name ="ENFToken";
     string public symbol="ENF";
     uint8 public decimals=8;
@@ -15,6 +15,8 @@ contract ENFToken is StandardToken {
         balances[msg.sender] = INITIAL_SUPPLY;
         
     }
-    function () external payable {
+    function getTotalSupply() public returns(uint){
+        return totalSupply_;
     }
+   
 }
