@@ -1,6 +1,10 @@
 # ENFToken
 Internal testing of new token for ENF, erc20 based token and transaction contract. 
-# To Do
-Update tests for token
-Test token once deployed on ganache
-Deploy transaction contract/test transaction contract
+#Status
+ERC20 Token successfully tested for supply and transactions between two accounts:
+#Dependencies
+Node/NPM
+Truffle 
+Git
+Ganache
+
