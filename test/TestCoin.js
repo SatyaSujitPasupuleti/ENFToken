@@ -45,12 +45,22 @@ contract('ENFToken', function(accounts) {
           assert.equal(account_one_ending_balance, account_one_starting_balance - amount, "Amount wasn't correctly taken from the sender");
           assert.equal(account_two_ending_balance, account_two_starting_balance + amount, "Amount wasn't correctly sent to the receiver");
         });
+       
 
 
 
 
 
     });
+    it("should check balance correctly", function() {
+      return ENFToken.deployed().then(function(instance) {
+        return instance.balanceOf.call(accounts[0]);
+
+      }).then(function(balance){
+        console.log(balance.valueOf());
+
+      });
+      });
     
 
 });
