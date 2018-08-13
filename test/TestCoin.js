@@ -1,7 +1,6 @@
 
 
 var ENFToken = artifacts.require("ENFToken");
-//Test #1 Succeeds
 contract('ENFToken', function(accounts) {
     it("should put 500000000 ENF in the first account" , function() {
         return ENFToken.deployed().then(function(instance) {

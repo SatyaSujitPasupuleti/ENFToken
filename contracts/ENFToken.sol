@@ -7,16 +7,23 @@ contract ENFToken is BasicToken {
     string public symbol="ENF";
     uint8 public decimals=8;
     uint public INITIAL_SUPPLY=500000000;
+   
     
 
-
+ /**
+  * @dev Constructor of ENFToken, uses BasicToken
+  */
     constructor() public {
         totalSupply_ = INITIAL_SUPPLY;
         balances[msg.sender] = INITIAL_SUPPLY;
         
     }
+     /**
+  * @dev returns total supply of ENf token
+  */
     function getTotalSupply() public returns(uint){
         return totalSupply_;
     }
+   
    
 }
