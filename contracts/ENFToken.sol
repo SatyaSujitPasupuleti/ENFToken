@@ -21,7 +21,7 @@ contract ENFToken is BasicToken {
      /**
   * @dev returns total supply of ENf token
   */
-    function getTotalSupply() public returns(uint){
+    function getTotalSupply() public view returns(uint){
         return totalSupply_;
     }
    

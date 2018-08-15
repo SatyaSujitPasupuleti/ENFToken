@@ -18,7 +18,7 @@ contract Transaction{
     {
         ENFadd = _enf;
         ENF = ENFToken(ENFadd);
-        owner=msg.sender;
+        owner = msg.sender;
 
         
     }
@@ -29,6 +29,7 @@ contract Transaction{
   * @param _timeInSeconds the time when the money can be redeemed
   */
     function startExchange(uint _amount,address _to, uint _timeInSeconds) public payable{
+        //require(msg.value = amount); 
         amount = _amount;
         paidPerson = _to;
         time = now + _timeInSeconds * 1 seconds;
@@ -38,7 +39,7 @@ contract Transaction{
   */
     function transferBy() public payable{
         require(now >= time); //make sure funds are not paid before the time has elapsed
-        require(indispute=false); //prevents web3 from calling when the transaction is in dispute
+        require(inDispute = false); //prevents web3 from calling when the transaction is in dispute
         ENF.transfer(paidPerson,amount); //after time has elapsed web3.js will call this function 
     }
     function getAmount() public view returns(uint) {
@@ -50,15 +51,39 @@ contract Transaction{
     function getTime() public view returns(uint){
         return time;
     }
+    /**
+  * @dev Called by interface when Owner wants to dispute contract
+  */
     function setDispute() public{
         require(msg.sender==owner); //only owner can call this function
-        indispute = true;
+        require(now <= time); //owner can only call function before time is done
+        inDispute = true;
 
     }
-    function resolve(address[] disputers,bool DisputerIsOwner) public{
+    /**
+  * @dev Called after the disputers decide who won the dispute
+  * @param disputers the majority voters of the dispute
+  * @param DisputeWinnerIsOwner the winner of the dispute as decided by the disputers. 
+  * True if the owner (brand) is the winner, false if the influencer is the winner
+  */
+
+    function resolve(address[] disputers,bool DisputeWinnerIsOwner,uint amount_disputers) public{
         //called by web3 after voters dispute the transaction
-        //give 10% of all the tokens in the contract to disputers
-        //give the rest of the tokens in the contract to the winner of dispute
+       
+        //give 10% of the amount to the disputers
+        amount = amount - amount_disputers;
+        for(uint i = 0;i < disputers.length; i++ ){
+            ENF.transfer(disputers[i],amount_disputers);
+
+        }
+        if(DisputeWinnerIsOwner == true) 
+        {
+            ENF.transfer(owner,amount);
+        }
+        else{
+            ENF.transfer(paidPerson,amount);
+        }
+        
 
     }
 
