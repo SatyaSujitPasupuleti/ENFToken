@@ -15,7 +15,10 @@ contract('Transaction', async(accounts)=> {
              trans=instance;
 
           }).then(function(done){
-              this.timeout(30000);
+             
+             // this.timeout(30000); //timeout function for 10 seconds 
+             //call transferBy
+             //check balance of account[0]/account[1] after it is done
               
             
             

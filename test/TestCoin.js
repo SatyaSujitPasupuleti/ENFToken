@@ -9,7 +9,7 @@ contract('ENFToken', function(accounts) {
             assert.equal(balance.valueOf(),500000000,"500000000 wasn't in the first account");
         });      
     });
-    //test #2 Succeeds
+    
     it("should send coin correctly", function() {
         var meta;
     
